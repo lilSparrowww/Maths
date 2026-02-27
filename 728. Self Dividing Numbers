@@ -1,0 +1,80 @@
+728. Self Dividing Numbers
+
+LeetCode Link:
+https://leetcode.com/problems/self-dividing-numbers/
+
+📌 Problem Statement
+
+A self-dividing number is a number that:
+
+Is divisible by every digit it contains.
+
+Does NOT contain the digit 0.
+
+Given two integers left and right, return all self-dividing numbers in the range [left, right].
+
+🧠 Intuition
+
+For each number in the range:
+
+Extract digits one by one.
+
+If any digit is 0 → reject.
+
+If the number is not divisible by a digit → reject.
+
+If all digits divide the number → add it to result.
+
+Key idea:
+
+Whenever a problem involves digits, always use:
+digit = num % 10
+num = num / 10
+
+✅ Algorithm
+For each number i from left to right:
+
+Copy it into temp
+
+While temp > 0
+
+Extract digit = temp % 10
+
+If digit == 0 → return false
+
+If i % digit != 0 → return false
+
+temp = temp / 10
+
+CODE 
+class Solution {
+
+    public List<Integer> selfDividingNumbers(int left, int right) {
+        List<Integer> result = new ArrayList<>();
+
+        for (int i = left; i <= right; i++) {
+            if (isSelfDividing(i)) {
+                result.add(i);
+            }
+        }
+
+        return result;
+    }
+
+    private boolean isSelfDividing(int num) {
+        int temp = num;
+
+        while (temp > 0) {
+            int digit = temp % 10;
+
+            if (digit == 0 || num % digit != 0) {
+                return false;
+            }
+
+            temp /= 10;
+        }
+
+        return true;
+    }
+}
+If loop finishes → number is valid
